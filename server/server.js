@@ -1,7 +1,8 @@
 import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
-// import routes from "./routes/router.js"
+import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 import connectDB from "./config/db.js"
 
 dotenv.config()
@@ -15,7 +16,9 @@ connectDB()
 
 const PORT = process.env.PORT ||3000
 
-// app.use('/api',routes)
+app.use('/api/auth',authRoutes)
+app.use('/api/users',userRoutes)
+
 app.get('/',(req,res)=>{
     res.json({
         "success": true,
