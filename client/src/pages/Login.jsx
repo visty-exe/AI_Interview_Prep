@@ -1,9 +1,12 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const BASE_URL = import.meta.env.VITE_API_URL;
+  const navigate= useNavigate()
+
   const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
@@ -38,7 +41,7 @@ const Login = () => {
       }
 
       login(data);
-      setMessage("Login Successful!");
+      navigate('/dashboard')
     } catch (error) {
       console.error(error);
       setMessage("Something went wrong");
