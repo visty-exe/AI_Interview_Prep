@@ -95,8 +95,8 @@ export const uploadResume = async (req, res) => {
         await user.save();
 
         res.status(200).json({
-            message: "Resume uploaded successfully",
-            resume: user.resume
+            message: "Resume analyzed successfully",
+            analysis: parsedAnalysis
         });
 
     } catch (error) {

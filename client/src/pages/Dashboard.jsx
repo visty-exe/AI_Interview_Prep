@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [message, setMessage] = useState("");
   const [resume, setResume] = useState(null);
   const [resumeMessage, setResumeMessage] = useState("");
+  const [analysis, setAnalysis] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +46,28 @@ const Dashboard = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/users/profile`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setAnalysis(data.user.resumeAnalysis);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   const handleResumeUpload = async (e) => {
     e.preventDefault();
 
@@ -71,7 +94,7 @@ const Dashboard = () => {
         setResumeMessage(data.message);
         return;
       }
-
+      setAnalysis(data.analysis);
       setResumeMessage("Resume uploaded successfully!");
     } catch (error) {
       console.error(error);
@@ -153,8 +176,49 @@ const Dashboard = () => {
       <h2>Placement Preparation</h2>
 
       <div>
-        <h3>📄 Resume Analysis</h3>
-        <p>Upload your resume and get AI-powered feedback.</p>
+        {analysis && (
+          <>
+            <hr />
+            <h2>AI Resume Analysis</h2>
+
+            <h3>Resume Score: {analysis.score}/100</h3>
+
+            <h3>Skills</h3>
+            <ul>
+              {(analysis.skills || []).map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+
+            <h3>Strengths</h3>
+            <ul>
+              {(analysis.strengths || []).map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+
+            <h3>Weaknesses</h3>
+            <ul>
+              {(analysis.weaknesses || []).map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+
+            <h3>Missing Skills</h3>
+            <ul>
+              {(analysis.missingSkills || []).map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+
+            <h3>AI Suggestions</h3>
+            <ul>
+              {(analysis.suggestions || []).map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
 
       <div>
