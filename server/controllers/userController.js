@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import extractResumeText from "../services/resumeParser.js";
+import analyzeResume from "../services/aiResumeAnalyzer.js";
 
 export const getProfile = async (req, res) => {
     try {
@@ -58,22 +60,38 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-export const uploadResume=async(req,res)=>{
+export const uploadResume = async (req, res) => {
     try {
-        if(!req.file){
+        if (!req.file) {
             return res.status(400).json({
                 message: "Please upload a resume"
             });
         }
 
-        const user= await User.findById(req.user.id)
+        const user = await User.findById(req.user.id)
         if (!user) {
             return res.status(404).json({
                 message: "User not found"
             });
         }
 
-        user.resume= req.file.path
+        const resumeText = await extractResumeText(req.file.path)
+        console.log("Resume text extracted");
+        console.log(
+            "Resume text length:",
+            resumeText.length
+        );
+
+        const analysis = await analyzeResume(
+            resumeText,
+            user.targetRole
+        );
+        const parsedAnalysis = JSON.parse(analysis);
+
+        console.log("AI analysis completed");
+
+        user.resume = req.file.path
+        user.resumeAnalysis = parsedAnalysis;
         await user.save();
 
         res.status(200).json({

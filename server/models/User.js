@@ -33,7 +33,38 @@ const userSchema = mongoose.Schema({
     resume:{
         type: String,
         default: ""
+    },
+    resumeAnalysis: {
+    score: {
+        type: Number,
+        default: 0
+    },
+
+    skills: {
+        type: [String],
+        default: []
+    },
+
+    strengths: {
+        type: [String],
+        default: []
+    },
+
+    weaknesses: {
+        type: [String],
+        default: []
+    },
+
+    missingSkills: {
+        type: [String],
+        default: []
+    },
+
+    suggestions: {
+        type: [String],
+        default: []
     }
+}
 },{
     timeStamps: true
 })
