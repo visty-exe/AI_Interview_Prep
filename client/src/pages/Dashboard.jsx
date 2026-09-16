@@ -174,6 +174,14 @@ const Dashboard = () => {
       <p>{resumeMessage}</p>
       <hr />
       <h2>Placement Preparation</h2>
+      <button
+    onClick={() => {
+        window.location.href =
+            "/mock-interview";
+    }}
+>
+    Start Mock Interview
+</button>
 
       <div>
         {analysis && (
@@ -224,6 +232,7 @@ const Dashboard = () => {
       <div>
         <h3>🎤 Mock Interview</h3>
         <p>Practice technical and HR interviews with AI.</p>
+        
       </div>
 
       <div>

@@ -1,9 +1,10 @@
 import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ProtectedRoutes from "./components/ProtectedRoutes.jsx"
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MockInterview from "./pages/MockInterview.jsx";
 
 const App = () => {
   return (
@@ -12,7 +13,22 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<h1>AI Placement Platform</h1>} />
-        <Route path="/dashboard" element={<ProtectedRoutes><Dashboard/></ProtectedRoutes>}/>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoutes>
+              <Dashboard />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/mock-interview"
+          element={
+            <ProtectedRoutes>
+              <MockInterview />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
