@@ -126,20 +126,23 @@ export const submitAnswer = async (req, res) => {
         const evaluation =
             JSON.parse(cleanResponse);
 
-        question.score= evaluation.score
+        question.score = evaluation.score
         question.answer = answer;
         question.feedback = evaluation.feedback;
         question.score = evaluation.score;
 
         await interview.save();
 
-        const totalScore= interview.questions.reduce((total,question)=>{
-            total+question.score
+        const totalScore = interview.questions.reduce((total, question) => {
+            total + question.score
         })
 
-        const answeredQuestion=interview.questions.filter(question=>question.answer).length
+        const answeredQuestion = interview.questions.filter(question => question.answer).length
 
-        
+        if (answeredQuestion > 0) {
+            interview.overallScore = totalScore / answeredQuestion
+        }
+        await interview.save();
         res.status(200).json({
             message: "Answer evaluated successfully",
             evaluation
@@ -153,6 +156,36 @@ export const submitAnswer = async (req, res) => {
 
         res.status(500).json({
             message: "Could not evaluate answer"
+        });
+    }
+};
+
+export const getInterviewResult = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const interview = await Interview.findOne({
+            _id: id,
+            user: req.user.id
+        })
+
+        if (!interview) {
+            return res.status(404).json({
+                message: "Interview not found"
+            });
+        }
+
+        res.status(200).json({
+            interview
+        });
+    } catch (error) {
+        console.error(
+            "Get interview result error:",
+            error
+        );
+
+        res.status(500).json({
+            message: "Could not get interview result"
         });
     }
 };
