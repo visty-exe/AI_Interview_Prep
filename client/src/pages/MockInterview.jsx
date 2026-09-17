@@ -46,20 +46,48 @@ const MockInterview = () => {
     }
   };
 
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
     if (!answer.trim()) {
       setMessage("Please write your answer first");
       return;
     }
 
-    setMessage("");
+    try {
+      setLoading(true);
+      setMessage("");
 
-    if (currentQuestion < interview.questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+      const response = await fetch(`${BASE_URL}/interviews/answer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")} `,
+        },
+        body: JSON.stringify({
+          interviewId: interview._id,
+          questionIndex: currentQuestion,
+          answer,
+        }),
+      });
 
-      setAnswer("");
-    } else {
-      setMessage("Interview completed");
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.message);
+        return;
+      }
+
+      console.log("Evaluation:", data.evaluation);
+      if (currentQuestion < interview.questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+
+        setAnswer("");
+      } else {
+        setMessage("Interview completed");
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("Could not submit answer");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,10 +145,12 @@ const MockInterview = () => {
         <br />
         <br />
 
-        <button onClick={nextQuestion}>
-          {currentQuestion === interview.questions.length - 1
-            ? "Finish Interview"
-            : "Next Question"}
+        <button onClick={nextQuestion} disabled={loading}>
+          {loading
+            ? "Evaluating..."
+            : currentQuestion === interview.questions.length - 1
+              ? "Finish Interview"
+              : "Next Question"}
         </button>
 
         <p>{message}</p>
