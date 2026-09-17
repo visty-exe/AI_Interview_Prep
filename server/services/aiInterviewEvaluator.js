@@ -3,7 +3,7 @@ import OpenAI from "openai";
 const client = new OpenAI({
     baseURL: "https://openrouter.ai/api/v1",
     apiKey: process.env.OPENROUTER_API_KEY
-})
+});
 
 const evaluateAnswer = async (
     question,
@@ -25,7 +25,13 @@ ${question}
 Candidate Answer:
 ${answer}
 
-Return ONLY valid JSON:
+IMPORTANT:
+Return ONLY valid JSON.
+Do NOT write anything before or after the JSON.
+Do NOT include safety labels.
+Do NOT include markdown code fences.
+
+Return exactly this structure:
 
 {
     "score": 0,
@@ -35,16 +41,14 @@ Return ONLY valid JSON:
 }
 
 Rules:
-- score must be between 0 and 10
-- feedback should briefly explain the quality of the answer
-- strengths should mention what the candidate did correctly
-- improvements should mention what the candidate should improve
-- Do not give irrelevant information
+- score must be a NUMBER between 0 and 10
+- feedback must be a string
+- strengths must be an array of strings
+- improvements must be an array of strings
 `;
 
     const response = await client.chat.completions.create({
         model: "openrouter/free",
-
         messages: [
             {
                 role: "user",

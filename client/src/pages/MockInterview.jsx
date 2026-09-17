@@ -81,7 +81,7 @@ const MockInterview = () => {
 
         setAnswer("");
       } else {
-        setMessage("Interview completed");
+        window.location.href = `/interview-result/${interview._id}`;
       }
     } catch (error) {
       console.error(error);

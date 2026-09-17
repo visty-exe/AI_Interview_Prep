@@ -5,6 +5,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MockInterview from "./pages/MockInterview.jsx";
+import InterviewResult from "./pages/InterviewResult.jsx";
 
 const App = () => {
   return (
@@ -29,6 +30,17 @@ const App = () => {
             </ProtectedRoutes>
           }
         />
+
+        <Route
+          path="/interview-result/:id"
+          element={
+            <ProtectedRoutes>
+              <InterviewResult />
+            </ProtectedRoutes>
+          }
+        />
+
+        
       </Routes>
     </BrowserRouter>
   );
