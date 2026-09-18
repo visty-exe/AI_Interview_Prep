@@ -133,14 +133,20 @@ export const submitAnswer = async (req, res) => {
 
         await interview.save();
 
-        const totalScore = interview.questions.reduce((total, question) => {
-            total + question.score
-        })
+        const answeredQuestions = interview.questions.filter(
+            question =>
+                question.answer &&
+                typeof question.score === "number"
+        );
 
-        const answeredQuestion = interview.questions.filter(question => question.answer).length
+        if (answeredQuestions.length > 0) {
+            const totalScore = answeredQuestions.reduce(
+                (total, question) => total + question.score,
+                0
+            );
 
-        if (answeredQuestion > 0) {
-            interview.overallScore = totalScore / answeredQuestion
+            interview.overallScore =
+                totalScore / answeredQuestions.length;
         }
         await interview.save();
         res.status(200).json({
@@ -186,6 +192,29 @@ export const getInterviewResult = async (req, res) => {
 
         res.status(500).json({
             message: "Could not get interview result"
+        });
+    }
+};
+
+export const getInterviewHistory = async (req, res) => {
+    try {
+        const interviews = await Interview.find({
+            user: req.user.id
+        })
+            .sort({ createdAt: -1 })
+            .select("type targetRole difficulty overallScore createdAt");
+
+        res.status(200).json({
+            interviews
+        });
+    } catch (error) {
+        console.error(
+            "Get interview history error:",
+            error
+        );
+
+        res.status(500).json({
+            message: "Could not get interview history"
         });
     }
 };

@@ -28,6 +28,8 @@ const InterviewResult = () => {
         setLoading(false);
       }
     };
+
+    fetchResult(); // ⭐ Missing in your code
   }, [id]);
 
   if (loading) {
@@ -41,11 +43,14 @@ const InterviewResult = () => {
   return (
     <div>
       <h1>Interview Result</h1>
-      <h2>Overall Score: {interview.overallScore.toFixed(1)}/10</h2>
+
+      <h2>
+        Overall Score: {interview.overallScore.toFixed(1)}/10
+      </h2>
 
       <p>Role: {interview.targetRole}</p>
-
       <p>Type: {interview.type}</p>
+
       <hr />
 
       <h2>Question Analysis</h2>
@@ -72,12 +77,11 @@ const InterviewResult = () => {
             <strong>AI Feedback:</strong> {question.feedback}
           </p>
 
-          <hr/>
+          <hr />
         </div>
       ))}
     </div>
   );
 };
 
-
-export default InterviewResult
+export default InterviewResult;

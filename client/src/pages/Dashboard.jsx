@@ -11,7 +11,28 @@ const Dashboard = () => {
   const [resume, setResume] = useState(null);
   const [resumeMessage, setResumeMessage] = useState("");
   const [analysis, setAnalysis] = useState(null);
+  const [interviews, setInterviews] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(true);
 
+  const totalInterviews = interviews.length;
+
+  const averageScore =
+    totalInterviews > 0
+      ? interviews.reduce(
+          (total, interview) => total + interview.overallScore,
+          0,
+        ) / totalInterviews
+      : 0;
+
+  const highestScore =
+    totalInterviews > 0
+      ? Math.max(...interviews.map((interview) => interview.overallScore))
+      : 0;
+
+  const scoreTrend = [...interviews].reverse().map((interview, index) => ({
+    interview: index + 1,
+    score: interview.overallScore,
+  }));
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,8 +85,28 @@ const Dashboard = () => {
         console.error(error);
       }
     };
+    const fetchInterviews = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/interviews`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setInterviews(data.interviews);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setHistoryLoading(false);
+      }
+    };
 
     fetchProfile();
+    fetchInterviews();
   }, []);
 
   const handleResumeUpload = async (e) => {
@@ -175,13 +216,76 @@ const Dashboard = () => {
       <hr />
       <h2>Placement Preparation</h2>
       <button
-    onClick={() => {
-        window.location.href =
-            "/mock-interview";
-    }}
->
-    Start Mock Interview
-</button>
+        onClick={() => {
+          window.location.href = "/mock-interview";
+        }}
+      >
+        Start Mock Interview
+      </button>
+
+      <hr />
+      <h2>Performance Summary</h2>
+      <div>
+        <div>
+          <h3>Total Interviews</h3>
+          <p>{totalInterviews}</p>
+        </div>
+
+        <div>
+          <h3>Average Score</h3>
+          <p>{averageScore.toFixed(1)}/10</p>
+        </div>
+
+        <div>
+          <h3>Highest Score</h3>
+          <p>{highestScore.toFixed(1)}/10</p>
+        </div>
+      </div>
+      <hr />
+
+      <h2>Score Trend</h2>
+
+      {scoreTrend.length === 0 ? (
+        <p>No interview data available</p>
+      ) : (
+        scoreTrend.map((item) => (
+          <p key={item.interview}>
+            Interview {item.interview}: {item.score.toFixed(1)}/10
+          </p>
+        ))
+      )}
+      <hr />
+
+      <h2> Interview History</h2>
+      {historyLoading ? (
+        <p>Loading interview history...</p>
+      ) : interviews.length === 0 ? (
+        <p>No interviews completed yet.</p>
+      ) : (
+        interviews.map((interview) => (
+          <div key={interview._id}>
+            <h3>{interview.type.toUpperCase()} Interview</h3>
+
+            <p>Role: {interview.targetRole}</p>
+
+            <p>Difficulty: {interview.difficulty}</p>
+
+            <p>Score: {interview.overallScore.toFixed(1)}/10</p>
+
+            <p>Date: {new Date(interview.createdAt).toLocaleDateString()}</p>
+
+            <button
+              onClick={() => {
+                window.location.href = `/interview-result/${interview._id}`;
+              }}
+            >
+              View Result
+            </button>
+
+            <hr />
+          </div>
+        ))
+      )}
 
       <div>
         {analysis && (
@@ -232,7 +336,6 @@ const Dashboard = () => {
       <div>
         <h3>🎤 Mock Interview</h3>
         <p>Practice technical and HR interviews with AI.</p>
-        
       </div>
 
       <div>
