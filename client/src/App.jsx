@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MockInterview from "./pages/MockInterview.jsx";
 import InterviewResult from "./pages/InterviewResult.jsx";
+import CodingInterview from "./pages/CodingInterview.jsx";
 
 const App = () => {
   return (
@@ -40,7 +41,14 @@ const App = () => {
           }
         />
 
-        
+        <Route
+          path="/coding-interview"
+          element={
+            <ProtectedRoutes>
+              <CodingInterview />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

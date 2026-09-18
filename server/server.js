@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import interviewRoutes from "./routes/interviewRoutes.js";
 import connectDB from "./config/db.js"
+import codingInterviewRoutes from "./routes/codingInterviewRoutes.js";
 
 
 
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 3000
 app.use('/api/auth', authRoutes)
 app.use("/api/interviews", interviewRoutes);
 app.use('/api/users', userRoutes)
+app.use('/api/coding', codingInterviewRoutes)
 app.use("/uploads", express.static("uploads"));
 
 app.get('/', (req, res) => {

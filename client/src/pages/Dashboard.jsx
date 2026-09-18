@@ -149,9 +149,7 @@ const Dashboard = () => {
       <p>Email: {user?.email}</p>
       <p>Role: {user?.role}</p>
       <hr />
-
       <h2>My Profile</h2>
-
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name</label>
@@ -196,10 +194,8 @@ const Dashboard = () => {
 
         <button type="submit">Update Profile</button>
       </form>
-
       <p>{message}</p>
       <hr />
-
       <h2>Upload Resume</h2>
       <form onSubmit={handleResumeUpload}>
         <input
@@ -222,7 +218,14 @@ const Dashboard = () => {
       >
         Start Mock Interview
       </button>
-
+        <br/>
+      <button
+        onClick={() => {
+          window.location.href = "/coding-interview";
+        }}
+      >
+        Start Coding Interview
+      </button>
       <hr />
       <h2>Performance Summary</h2>
       <div>
@@ -242,9 +245,7 @@ const Dashboard = () => {
         </div>
       </div>
       <hr />
-
       <h2>Score Trend</h2>
-
       {scoreTrend.length === 0 ? (
         <p>No interview data available</p>
       ) : (
@@ -255,7 +256,6 @@ const Dashboard = () => {
         ))
       )}
       <hr />
-
       <h2> Interview History</h2>
       {historyLoading ? (
         <p>Loading interview history...</p>
@@ -286,7 +286,6 @@ const Dashboard = () => {
           </div>
         ))
       )}
-
       <div>
         {analysis && (
           <>
@@ -332,24 +331,19 @@ const Dashboard = () => {
           </>
         )}
       </div>
-
       <div>
         <h3>🎤 Mock Interview</h3>
         <p>Practice technical and HR interviews with AI.</p>
       </div>
-
       <div>
         <h3>💻 Coding Interview</h3>
         <p>Practice coding questions for placements.</p>
       </div>
-
       <div>
         <h3>📊 Performance</h3>
         <p>Track your interview and coding performance.</p>
       </div>
-
       <br />
-
       <button onClick={logout}>Logout</button>
     </div>
   );
