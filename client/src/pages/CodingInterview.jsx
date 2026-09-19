@@ -8,9 +8,12 @@ const CodingInterview = () => {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [evaluation, setEvaluation] = useState(null);
 
   const startCodingInterview = async () => {
     try {
+      setLoading(true);
+      setMessage("");
       const response = await fetch(`${BASE_URL}/coding/start`, {
         method: "POST",
         headers: {
@@ -36,6 +39,35 @@ const CodingInterview = () => {
     }
   };
 
+  const handleSubmitCode = async () => {
+    try {
+      setLoading(true);
+      setMessage("");
+
+      const response = await fetch(`${BASE_URL}/coding/submit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ codingInterviewId: codingInterview._id, code }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message);
+        return;
+      }
+
+      setEvaluation(data.evaluation);
+      setMessage("Code evaluated successfully");
+    } catch (error) {
+      console.error(error);
+      setMessage("Could not evaluate code");
+    } finally {
+      setLoading(false);
+    }
+  };
   if (!codingInterview) {
     return (
       <>
@@ -92,8 +124,40 @@ const CodingInterview = () => {
         />
         <br />
         <br />
-        <button>Submit Code</button>
+        <button onClick={handleSubmitCode} disabled={loading || !code.trim()}>
+          {loading ? "Evaluating..." : "Submit Code"}
+        </button>
         <p>{message}</p>
+
+        {evaluation && (
+          <div>
+            <hr />
+
+            <h2>Evaluation Result</h2>
+
+            <h3>Score: {evaluation.score}/10</h3>
+
+            <h3>Feedback</h3>
+            <p>{evaluation.feedback}</p>
+
+            <h3>Correctness</h3>
+            <p>{evaluation.correctness}</p>
+
+            <h3>Time Complexity</h3>
+            <p>{evaluation.timeComplexity}</p>
+
+            <h3>Space Complexity</h3>
+            <p>{evaluation.spaceComplexity}</p>
+
+            <h3>Improvements</h3>
+
+            <ul>
+              {evaluation.improvements.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );

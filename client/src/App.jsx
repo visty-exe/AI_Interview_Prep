@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MockInterview from "./pages/MockInterview.jsx";
 import InterviewResult from "./pages/InterviewResult.jsx";
 import CodingInterview from "./pages/CodingInterview.jsx";
+import CodingHistory from "./pages/CodingHistory.jsx";
 
 const App = () => {
   return (
@@ -49,6 +50,12 @@ const App = () => {
             </ProtectedRoutes>
           }
         />
+
+        <Route path="/coding-history" element={
+          <ProtectedRoutes>
+            <CodingHistory/>
+          </ProtectedRoutes>
+        }/>
       </Routes>
     </BrowserRouter>
   );

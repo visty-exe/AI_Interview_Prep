@@ -218,13 +218,21 @@ const Dashboard = () => {
       >
         Start Mock Interview
       </button>
-        <br/>
+      <br />
       <button
         onClick={() => {
           window.location.href = "/coding-interview";
         }}
       >
         Start Coding Interview
+      </button>
+      <hr />
+      <button
+        onClick={() => {
+          window.location.href = "/coding-history";
+        }}
+      >
+        Coding History
       </button>
       <hr />
       <h2>Performance Summary</h2>

@@ -151,3 +151,26 @@ export const submitCodingAnswer = async (req, res) => {
         });
     }
 }
+
+export const getCodingInterviewHistory = async (req, res) => {
+    try {
+        const history = await CodingInterview.find({
+            user: req.user.id
+        }).sort({ createdAt: -1 })
+        
+        res.status(200).json({
+            history
+        });
+
+
+    } catch (error) {
+        console.error(
+            "Get coding history error:",
+            error
+        );
+
+        res.status(500).json({
+            message: "Could not fetch coding history"
+        });
+    }
+};
