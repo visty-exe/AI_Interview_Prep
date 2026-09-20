@@ -8,6 +8,7 @@ import MockInterview from "./pages/MockInterview.jsx";
 import InterviewResult from "./pages/InterviewResult.jsx";
 import CodingInterview from "./pages/CodingInterview.jsx";
 import CodingHistory from "./pages/CodingHistory.jsx";
+import CodingPerformance from "./pages/CodingPerformance.jsx";
 
 const App = () => {
   return (
@@ -51,11 +52,23 @@ const App = () => {
           }
         />
 
-        <Route path="/coding-history" element={
-          <ProtectedRoutes>
-            <CodingHistory/>
-          </ProtectedRoutes>
-        }/>
+        <Route
+          path="/coding-history"
+          element={
+            <ProtectedRoutes>
+              <CodingHistory />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route
+          path="/coding-performance"
+          element={
+            <ProtectedRoutes>
+              <CodingPerformance />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -227,12 +227,21 @@ const Dashboard = () => {
         Start Coding Interview
       </button>
       <hr />
+      <h2>History & Performance</h2>
       <button
         onClick={() => {
           window.location.href = "/coding-history";
         }}
       >
         Coding History
+      </button>
+      <br />
+      <button
+        onClick={() => {
+          window.location.href = "/coding-performance";
+        }}
+      >
+        Coding Performance
       </button>
       <hr />
       <h2>Performance Summary</h2>
@@ -294,6 +303,7 @@ const Dashboard = () => {
           </div>
         ))
       )}
+
       <div>
         {analysis && (
           <>
