@@ -7,7 +7,7 @@ import userRoutes from "./routes/userRoutes.js"
 import interviewRoutes from "./routes/interviewRoutes.js";
 import connectDB from "./config/db.js"
 import codingInterviewRoutes from "./routes/codingInterviewRoutes.js";
-
+import skillGapRoutes from "./routes/skillGapRoutes.js";
 
 
 const app = express();
@@ -24,6 +24,7 @@ app.use("/api/interviews", interviewRoutes);
 app.use('/api/users', userRoutes)
 app.use('/api/coding', codingInterviewRoutes)
 app.use("/uploads", express.static("uploads"));
+app.use("/api/skill-gap", skillGapRoutes);
 
 app.get('/', (req, res) => {
     res.json({
