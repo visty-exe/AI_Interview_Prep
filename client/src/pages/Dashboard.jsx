@@ -243,6 +243,14 @@ const Dashboard = () => {
       >
         Coding Performance
       </button>
+      <br />
+      <button
+        onClick={() => {
+          window.location.href = "/skill-gap";
+        }}
+      >
+        Skill Gap Analysis
+      </button>
       <hr />
       <h2>Performance Summary</h2>
       <div>
@@ -261,6 +269,7 @@ const Dashboard = () => {
           <p>{highestScore.toFixed(1)}/10</p>
         </div>
       </div>
+
       <hr />
       <h2>Score Trend</h2>
       {scoreTrend.length === 0 ? (

@@ -8,6 +8,7 @@ import MockInterview from "./pages/MockInterview.jsx";
 import InterviewResult from "./pages/InterviewResult.jsx";
 import CodingInterview from "./pages/CodingInterview.jsx";
 import CodingHistory from "./pages/CodingHistory.jsx";
+import SkillGap from "./pages/SkillGap.jsx";
 import CodingPerformance from "./pages/CodingPerformance.jsx";
 
 const App = () => {
@@ -66,6 +67,15 @@ const App = () => {
           element={
             <ProtectedRoutes>
               <CodingPerformance />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route
+          path="/skill-gap"
+          element={
+            <ProtectedRoutes>
+              <SkillGap />
             </ProtectedRoutes>
           }
         />

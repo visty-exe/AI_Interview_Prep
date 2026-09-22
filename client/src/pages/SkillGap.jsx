@@ -122,9 +122,9 @@ const SkillGap = () => {
             <p>No missing skills identified.</p>
           ) : (
             <ul>
-              {skillGap.missingSkills.map((skill, index) => {
-                <li key={index}>{skill}</li>;
-              })}
+              {skillGap.missingSkills.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
             </ul>
           )}
           <hr />
