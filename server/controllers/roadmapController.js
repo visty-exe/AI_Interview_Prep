@@ -85,3 +85,26 @@ export const generateUserRoadmap = async (req, res) => {
         });
     }
 };
+
+export const getUserRoadmap = async (req, res) => {
+    try {
+        const roadmap = await LearningRoadmap.findOne({
+            user: req.user.id
+        })
+        if (!roadmap) {
+            return res.status(404).json({
+                message: "Learning roadmap not found"
+            });
+        }
+
+        res.status(200).json({
+            roadmap
+        });
+    } catch (error) {
+        console.error("Get roadmap error:", error);
+
+        res.status(500).json({
+            message: "Could not fetch learning roadmap"
+        });
+    }
+};
