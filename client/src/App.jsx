@@ -11,6 +11,8 @@ import CodingHistory from "./pages/CodingHistory.jsx";
 import SkillGap from "./pages/SkillGap.jsx";
 import CodingPerformance from "./pages/CodingPerformance.jsx";
 import LearningRoadmap from "./pages/LearningRoadmap.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
 
 const App = () => {
   return (
@@ -87,6 +89,14 @@ const App = () => {
             <ProtectedRoutes>
               <LearningRoadmap />
             </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
           }
         />
       </Routes>
