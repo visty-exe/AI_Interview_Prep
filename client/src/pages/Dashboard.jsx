@@ -357,6 +357,14 @@ const Dashboard = () => {
             </ul>
           </>
         )}
+
+        <button
+          onClick={() => {
+            window.location.href = "/learning-roadmap";
+          }}
+        >
+          Learning Roadmap
+        </button>
       </div>
       <div>
         <h3>🎤 Mock Interview</h3>

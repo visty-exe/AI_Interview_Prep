@@ -10,6 +10,7 @@ import CodingInterview from "./pages/CodingInterview.jsx";
 import CodingHistory from "./pages/CodingHistory.jsx";
 import SkillGap from "./pages/SkillGap.jsx";
 import CodingPerformance from "./pages/CodingPerformance.jsx";
+import LearningRoadmap from "./pages/LearningRoadmap.jsx";
 
 const App = () => {
   return (
@@ -76,6 +77,15 @@ const App = () => {
           element={
             <ProtectedRoutes>
               <SkillGap />
+            </ProtectedRoutes>
+          }
+        />
+
+        <Route
+          path="/learning-roadmap"
+          element={
+            <ProtectedRoutes>
+              <LearningRoadmap />
             </ProtectedRoutes>
           }
         />
