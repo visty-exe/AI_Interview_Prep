@@ -3,7 +3,7 @@ import SkillGap from "../models/SkillGap.js";
 import LearningRoadmap from "../models/LearningRoadmap.js";
 import generateRoadmap from "../services/aiRoadmapGenerator.js";
 
-export const generateUserRoadmap = async (requestAnimationFrame, res) => {
+export const generateUserRoadmap = async (req, res) => {
     try {
         const user = await User.findById(req.user.id)
         if (!user) {
@@ -32,8 +32,8 @@ export const generateUserRoadmap = async (requestAnimationFrame, res) => {
         console.log("AI ROADMAP RESPONSE:");
         console.log(aiResponse);
 
-        const jsonStart = aiResponse.indexof("{")
-        const jsonEnd = aiResponse.lastIndexof("}")
+        const jsonStart = aiResponse.indexOf("{")
+        const jsonEnd = aiResponse.lastIndexOf("}")
 
         if (jsonStart === -1 || jsonEnd === -1) {
             return res.status(500).json({

@@ -67,7 +67,7 @@ Rules:
 - Do not wrap the JSON inside a code block.
 `;
 
-const respone= await client.chat.completions.create({
+const response= await client.chat.completions.create({
      model: "openrouter/free",
     messages: [
       {
