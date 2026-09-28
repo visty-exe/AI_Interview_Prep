@@ -14,6 +14,7 @@ import LearningRoadmap from "./pages/LearningRoadmap.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
 import { Mic, Code2, Target, Map, ArrowRight } from "lucide-react";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
         <Route
           path="/"
           element={
