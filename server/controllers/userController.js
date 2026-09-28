@@ -68,14 +68,16 @@ export const uploadResume = async (req, res) => {
             });
         }
 
-        const user = await User.findById(req.user.id)
+        const user = await User.findById(req.user.id);
+
         if (!user) {
             return res.status(404).json({
                 message: "User not found"
             });
         }
 
-        const resumeText = await extractResumeText(req.file.path)
+        const resumeText = await extractResumeText(req.file.path);
+
         console.log("Resume text extracted");
         console.log(
             "Resume text length:",
@@ -86,12 +88,31 @@ export const uploadResume = async (req, res) => {
             resumeText,
             user.targetRole
         );
-        const parsedAnalysis = JSON.parse(analysis);
+
+        console.log("AI RESUME RESPONSE:");
+        console.log(analysis);
+
+        // Extract JSON object from AI response
+        const jsonStart = analysis.indexOf("{");
+        const jsonEnd = analysis.lastIndexOf("}");
+
+        if (jsonStart === -1 || jsonEnd === -1) {
+            return res.status(500).json({
+                message: "AI returned invalid resume analysis"
+            });
+        }
+
+        const cleanResponse = analysis
+            .slice(jsonStart, jsonEnd + 1)
+            .trim();
+
+        const parsedAnalysis = JSON.parse(cleanResponse);
 
         console.log("AI analysis completed");
 
-        user.resume = req.file.path
+        user.resume = req.file.path;
         user.resumeAnalysis = parsedAnalysis;
+
         await user.save();
 
         res.status(200).json({
