@@ -20,7 +20,12 @@ app.use(express.json())
 connectDB()
 
 const PORT = process.env.PORT || 3000
-
+app.use(
+  cors({
+    origin: "https://ai-interview-prep-visty.vercel.app/",
+    credentials: true,
+  })
+);
 app.use('/api/auth', authRoutes)
 app.use("/api/interviews", interviewRoutes);
 app.use('/api/users', userRoutes)
