@@ -22,7 +22,7 @@ connectDB()
 const PORT = process.env.PORT || 3000
 app.use(
   cors({
-    origin: "https://ai-interview-prep-visty.vercel.app/",
+    origin: "https://ai-interview-prep-visty.vercel.app",
     credentials: true,
   })
 );
