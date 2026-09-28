@@ -170,7 +170,7 @@ const CodingInterview = () => {
 
         {/* ── Right: Editor ── */}
         <div className="flex flex-col gap-4">
-          <div className="flex-1 rounded-xl border border-neutral-200 overflow-hidden flex flex-col min-h-[420px]">
+          <div className="flex-1 rounded-xl border border-neutral-200 overflow-hidden flex flex-col min-h-105">
             <div className="flex items-center justify-between border-b border-neutral-800 bg-neutral-900 px-4 py-2.5">
               <div className="flex items-center gap-2">
                 <Code2 size={13} strokeWidth={1.8} className="text-neutral-400" />
