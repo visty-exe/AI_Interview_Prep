@@ -91,7 +91,7 @@ const App = () => {
               </main>
 
               <footer className="max-w-6xl mx-auto w-full text-center text-[12px] text-neutral-400">
-                © 2024 InterviewPrep · Crafted for career readiness.
+                © 2026 InterviewPrep · Crafted for career readiness · Made with ❤️ by <a href="https://www.linkedin.com/in/visty" target="_blank">Visty</a>
               </footer>
             </div>
           }

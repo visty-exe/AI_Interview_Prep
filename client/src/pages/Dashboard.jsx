@@ -125,7 +125,7 @@ const Dashboard = () => {
       });
       const data = await res.json();
       if (!res.ok) {
-        setLoading(false);
+
         setResumeMessage(data.message);
         return;
       }
@@ -133,6 +133,8 @@ const Dashboard = () => {
       setResumeMessage("Resume analysed.");
     } catch {
       setResumeMessage("Something went wrong");
+    }finally{
+      setLoading(false)
     }
   };
 
