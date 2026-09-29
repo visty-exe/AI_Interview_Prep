@@ -18,7 +18,10 @@ const app = express();
 // CORS
 app.use(
   cors({
-    origin: "https://ai-interview-prep-visty.vercel.app",
+    origin: [
+      "https://ai-interview-prep-visty.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );

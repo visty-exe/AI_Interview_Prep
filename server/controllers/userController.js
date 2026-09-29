@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import extractResumeText from "../services/resumeParser.js";
 import analyzeResume from "../services/aiResumeAnalyzer.js";
+import fs from "fs";
 
 export const getProfile = async (req, res) => {
     try {
@@ -79,10 +80,7 @@ export const uploadResume = async (req, res) => {
         const resumeText = await extractResumeText(req.file.path);
 
         console.log("Resume text extracted");
-        console.log(
-            "Resume text length:",
-            resumeText.length
-        );
+        console.log("Resume text length:", resumeText.length);
 
         const analysis = await analyzeResume(
             resumeText,
@@ -92,7 +90,6 @@ export const uploadResume = async (req, res) => {
         console.log("AI RESUME RESPONSE:");
         console.log(analysis);
 
-        // Extract JSON object from AI response
         const jsonStart = analysis.indexOf("{");
         const jsonEnd = analysis.lastIndexOf("}");
 
@@ -110,7 +107,6 @@ export const uploadResume = async (req, res) => {
 
         console.log("AI analysis completed");
 
-        user.resume = req.file.path;
         user.resumeAnalysis = parsedAnalysis;
 
         await user.save();
@@ -126,5 +122,15 @@ export const uploadResume = async (req, res) => {
         res.status(500).json({
             message: "Server error"
         });
+    } finally {
+        if (req.file?.path) {
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error("Failed to delete temporary resume:", err);
+                } else {
+                    console.log("Temporary resume deleted");
+                }
+            });
+        }
     }
 };
