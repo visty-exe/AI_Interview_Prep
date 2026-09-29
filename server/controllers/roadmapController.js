@@ -29,9 +29,6 @@ export const generateUserRoadmap = async (req, res) => {
             skillGap
         })
 
-        console.log("AI ROADMAP RESPONSE:");
-        console.log(aiResponse);
-
         const jsonStart = aiResponse.indexOf("{")
         const jsonEnd = aiResponse.lastIndexOf("}")
 

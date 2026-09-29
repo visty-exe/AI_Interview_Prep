@@ -71,7 +71,7 @@ const Layout = ({ children, title, subtitle }) => {
         <div className="flex items-center justify-between px-6 pt-6 pb-5 border-b border-neutral-100">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[15px] font-bold tracking-tight text-neutral-900">InterviewPrep</span>
+              <span className="text-[20px] font-bold tracking-tight text-neutral-900">HireMate</span>
               {isAdmin && (
                 <span className="rounded bg-neutral-900 text-white px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider">
                   Admin

@@ -32,16 +32,7 @@ export const startInterview = async (req, res) => {
             .replace(/```/g, "")
             .trim();
 
-
-        // console.log("AI RESPONSE:");
-        // console.log(aiResponse);
-
-
         const parsedResponse = JSON.parse(cleanResponse)
-
-        // console.log("PARSED RESPONSE:");
-        // console.log(parsedResponse);
-
 
         const questions = parsedResponse.questions.map(
             (question) => ({
@@ -114,9 +105,6 @@ export const submitAnswer = async (req, res) => {
             answer,
             user.targetRole || "Software Developer"
         )
-
-        console.log("AI EVALUATION:");
-        console.log(aiResponse);
 
         const cleanResponse = aiResponse
             .replace(/```json/g, "")

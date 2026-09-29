@@ -31,9 +31,6 @@ export const startCodingInterview = async (req, res) => {
             difficulty
         );
 
-        console.log("AI CODING RESPONSE:");
-        console.log(aiResponse);
-
         // Find JSON object from AI response
         const jsonStart = aiResponse.indexOf("{");
         const jsonEnd = aiResponse.lastIndexOf("}");
@@ -105,9 +102,6 @@ export const submitCodingAnswer = async (req, res) => {
         }
 
         const aiResponse = await evaluateCodingAnswer(codingInterview.question, code)
-
-        console.log("AI CODING EVALUATION:");
-        console.log(aiResponse);
 
         const cleanResponse = aiResponse
             .replace(/```json/g, "")

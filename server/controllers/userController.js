@@ -79,16 +79,10 @@ export const uploadResume = async (req, res) => {
 
         const resumeText = await extractResumeText(req.file.path);
 
-        console.log("Resume text extracted");
-        console.log("Resume text length:", resumeText.length);
-
         const analysis = await analyzeResume(
             resumeText,
             user.targetRole
         );
-
-        console.log("AI RESUME RESPONSE:");
-        console.log(analysis);
 
         const jsonStart = analysis.indexOf("{");
         const jsonEnd = analysis.lastIndexOf("}");
@@ -104,8 +98,6 @@ export const uploadResume = async (req, res) => {
             .trim();
 
         const parsedAnalysis = JSON.parse(cleanResponse);
-
-        console.log("AI analysis completed");
 
         user.resumeAnalysis = parsedAnalysis;
 

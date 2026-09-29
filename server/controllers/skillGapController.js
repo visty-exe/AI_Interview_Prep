@@ -52,9 +52,6 @@ export const generateUserSkillGap = async (req, res) => {
             codingPerformance
         })
 
-        console.log("AI SKILL GAP RESPONSE:");
-        console.log(aiResponse);
-
         const jsonStart = aiResponse.indexOf("{")
         const jsonEnd = aiResponse.lastIndexOf("}")
 
