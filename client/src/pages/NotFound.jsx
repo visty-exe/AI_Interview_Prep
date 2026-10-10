@@ -11,7 +11,7 @@ const NotFound = () => {
             to="/"
             className="text-lg font-bold tracking-tight text-neutral-900"
           >
-            HireMate
+            Preply
           </Link>
 
           <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
@@ -300,7 +300,7 @@ const NotFound = () => {
         {/* Footer */}
         <div className="mt-20 pt-6 border-t border-neutral-200 flex items-center justify-between">
           <p className="text-[11px] text-neutral-400">
-            HireMate · Interview preparation platform
+            Preply · Interview preparation platform
           </p>
 
           <p className="text-[11px] font-mono text-neutral-400">

@@ -1,6 +1,6 @@
-# HireMate — AI Interview & Placement Preparation Platform
+# Preply — AI Interview & Placement Preparation Platform
 
-HireMate is an **AI-powered interview and placement preparation platform** built using the MERN stack. It helps students and job seekers prepare for technical interviews, coding interviews, resume screening, skill-gap analysis, and personalized learning.
+Preply is an **AI-powered interview and placement preparation platform** built using the MERN stack. It helps students and job seekers prepare for technical interviews, coding interviews, resume screening, skill-gap analysis, and personalized learning.
 
 The platform combines **React, Node.js, Express, MongoDB, JWT authentication, and AI APIs** to provide an interactive preparation experience.
 
@@ -127,7 +127,7 @@ The platform combines **React, Node.js, Express, MongoDB, JWT authentication, an
 ## 🏗️ Project Architecture
 
 ```text
-HireMate
+Preply
 │
 ├── client
 │   ├── src
@@ -302,7 +302,7 @@ http://localhost:5173
 
 ## 🔐 Authentication Flow
 
-HireMate uses JWT-based authentication.
+Preply uses JWT-based authentication.
 
 ```text
 Register
@@ -477,7 +477,7 @@ MongoDB Atlas is used for cloud database hosting.
 
 ## 🎯 Project Objective
 
-The main objective of HireMate is to provide students and job seekers with a single platform where they can:
+The main objective of Preply is to provide students and job seekers with a single platform where they can:
 
 * Analyze and improve their resume
 * Practice technical and HR interviews
@@ -519,7 +519,7 @@ GitHub: `visty-exe`
 
 ## ⭐ Project Highlights
 
-> HireMate is a full-stack AI-powered interview preparation platform that combines **MERN development, authentication, document processing, AI integration, coding evaluation, performance analytics, and personalized learning** into a single application.
+> Preply is a full-stack AI-powered interview preparation platform that combines **MERN development, authentication, document processing, AI integration, coding evaluation, performance analytics, and personalized learning** into a single application.
 
 ---
 
